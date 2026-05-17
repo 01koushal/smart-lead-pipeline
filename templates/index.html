@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="ProspectIQ generates professional company insights, automated recommendations, and personalized audit reports instantly."
+    />
+    <title>ProspectIQ | AI-Powered Personalized Business Audits</title>
+    <link rel="stylesheet" href="../static/css/style.css" />
+    <script src="../static/js/main.js" defer></script>
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="site-header" aria-label="ProspectIQ header">
+        <a class="brand" href="#" aria-label="ProspectIQ home">
+          <span class="brand-mark" aria-hidden="true">P</span>
+          <span>ProspectIQ</span>
+        </a>
+        <a class="header-link" href="#lead-form">Start audit</a>
+      </header>
+
+      <main>
+        <section class="hero section-pad" aria-labelledby="hero-title">
+          <div class="hero-content reveal">
+            <p class="eyebrow">AI business intelligence for modern teams</p>
+            <h1 id="hero-title">AI-Powered Personalized Business Audits</h1>
+            <p class="hero-copy">
+              Generate professional company insights, automated recommendations,
+              and personalized audit reports instantly.
+            </p>
+            <a class="primary-cta" href="#lead-form">
+              Generate Personalized Report
+              <span aria-hidden="true">&rarr;</span>
+            </a>
+          </div>
+
+          <aside class="insight-panel reveal" aria-label="Audit preview">
+            <div class="panel-topline">
+              <span class="status-dot" aria-hidden="true"></span>
+              Live audit readiness
+            </div>
+            <div class="score-ring" aria-label="Audit score preview">
+              <span>92</span>
+              <small>fit score</small>
+            </div>
+            <div class="signal-list" aria-label="Example audit signals">
+              <div>
+                <span>Growth opportunities</span>
+                <strong>High</strong>
+              </div>
+              <div>
+                <span>Website clarity</span>
+                <strong>Strong</strong>
+              </div>
+              <div>
+                <span>Revenue risks</span>
+                <strong>3 found</strong>
+              </div>
+            </div>
+          </aside>
+        </section>
+
+        <section class="product-summary" aria-label="Product description">
+          <p>
+            ProspectIQ turns a few company details into a structured business
+            audit, helping teams identify positioning gaps, operational risks,
+            and practical next steps before the first sales conversation.
+          </p>
+        </section>
+
+        <section class="form-section section-pad" aria-labelledby="form-title">
+          <div class="form-card reveal">
+            <div class="form-heading">
+              <p class="eyebrow">Personalized audit intake</p>
+              <h2 id="form-title">Tell us where to start</h2>
+              <p>
+                Enter the details below and ProspectIQ will prepare your
+                company-specific report workflow.
+              </p>
+            </div>
+
+            <form id="lead-form" method="POST" action="/submit">
+              <div class="field-grid">
+                <div class="field">
+                  <label for="fullName">Full Name</label>
+                  <input
+                    id="fullName"
+                    name="fullName"
+                    type="text"
+                    autocomplete="name"
+                    placeholder="Alex Morgan"
+                    required
+                    minlength="2"
+                  />
+                  <span class="error-message" id="fullName-error"></span>
+                </div>
+
+                <div class="field">
+                  <label for="workEmail">Work Email</label>
+                  <input
+                    id="workEmail"
+                    name="workEmail"
+                    type="email"
+                    autocomplete="email"
+                    placeholder="alex@company.com"
+                    required
+                  />
+                  <span class="error-message" id="workEmail-error"></span>
+                </div>
+
+                <div class="field">
+                  <label for="companyName">Company Name</label>
+                  <input
+                    id="companyName"
+                    name="companyName"
+                    type="text"
+                    autocomplete="organization"
+                    placeholder="Acme Systems"
+                    required
+                    minlength="2"
+                  />
+                  <span class="error-message" id="companyName-error"></span>
+                </div>
+
+                <div class="field">
+                  <label for="companyWebsite">Company Website</label>
+                  <input
+                    id="companyWebsite"
+                    name="companyWebsite"
+                    type="url"
+                    inputmode="url"
+                    autocomplete="url"
+                    placeholder="https://company.com"
+                    required
+                  />
+                  <span class="error-message" id="companyWebsite-error"></span>
+                </div>
+
+                <div class="field field-wide">
+                  <label for="industry">Industry <span>Optional</span></label>
+                  <input
+                    id="industry"
+                    name="industry"
+                    type="text"
+                    autocomplete="off"
+                    placeholder="SaaS, healthcare, fintech..."
+                  />
+                  <span class="error-message" id="industry-error"></span>
+                </div>
+              </div>
+
+              <button class="submit-button" type="submit">
+                <span class="button-label">Generate Personalized Report</span>
+                <span class="button-spinner" aria-hidden="true"></span>
+              </button>
+
+              <p class="form-status" role="status" aria-live="polite">
+                {% if message %}{{ message }}{% endif %}
+              </p>
+            </form>
+          </div>
+        </section>
+
+        <section class="trust-section" aria-label="ProspectIQ capabilities">
+          <div class="trust-item reveal">
+            <span aria-hidden="true">01</span>
+            <h3>Structured company intelligence</h3>
+            <p>Convert intake details into practical insights and report-ready findings.</p>
+          </div>
+          <div class="trust-item reveal">
+            <span aria-hidden="true">02</span>
+            <h3>Recommendation automation</h3>
+            <p>Surface focused next steps across positioning, growth, and operations.</p>
+          </div>
+          <div class="trust-item reveal">
+            <span aria-hidden="true">03</span>
+            <h3>Built for trust</h3>
+            <p>Clean, consistent audit flows designed for professional client delivery.</p>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <p>&copy; 2026 ProspectIQ. AI-powered business audit platform.</p>
+        <a href="#lead-form">Generate report</a>
+      </footer>
+    </div>
+  </body>
+</html>
