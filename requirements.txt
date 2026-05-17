@@ -1,7 +1,8 @@
 Flask
 requests
 playwright
-weasyprint
+groq
 xhtml2pdf
+markdown
 gunicorn
 python-dotenv
