@@ -1,6 +1,7 @@
 from flask import Flask, render_template
 from flask import request
 import json
+from flask import send_from_directory
 
 from services.scraper import scrape_website
 from services.ai_service import generate_business_report
@@ -19,6 +20,14 @@ def log_section(title, value=None):
 def home():
 
     return render_template('index.html')
+
+@app.route('/reports/<path:filename>')
+def download_report(filename):
+
+    return send_from_directory(
+        'reports',
+        filename
+    )
 
 @app.route('/submit', methods=['POST'])
 def submit():
