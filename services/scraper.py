@@ -2,8 +2,9 @@ from playwright.sync_api import sync_playwright
 import json
 
 # -----------------------------------
-# WEBSITE URL
+# WEBSITE SCRAPER
 # -----------------------------------
+
 def scrape_website(url):
 
     # -----------------------------------
@@ -18,6 +19,7 @@ def scrape_website(url):
         "paragraphs": [],
         "cta_buttons": [],
         "business_summary": "",
+        "blocked": False,
         "error": None
     }
 
@@ -29,7 +31,7 @@ def scrape_website(url):
         return " ".join(text.split()).strip()
 
     # -----------------------------------
-    # SCRAPER FUNCTION
+    # START SCRAPING
     # -----------------------------------
 
     try:
@@ -75,6 +77,7 @@ def scrape_website(url):
                     )
 
                     if meta_description:
+
                         data["meta_description"] = clean_text(
                             meta_description
                         )
@@ -101,6 +104,7 @@ def scrape_website(url):
                         and len(text) > 3
                         and text not in data["headings"]
                     ):
+
                         data["headings"].append(text)
 
             except:
@@ -126,6 +130,7 @@ def scrape_website(url):
                         and len(text) > 40
                         and text not in data["paragraphs"]
                     ):
+
                         data["paragraphs"].append(text)
 
             except:
@@ -156,6 +161,7 @@ def scrape_website(url):
                         ]
                         and text not in data["cta_buttons"]
                     ):
+
                         data["cta_buttons"].append(text)
 
             except:
@@ -168,16 +174,19 @@ def scrape_website(url):
             summary_parts = []
 
             if data["meta_description"]:
+
                 summary_parts.append(
                     data["meta_description"]
                 )
 
             if data["headings"]:
+
                 summary_parts.extend(
                     data["headings"][:3]
                 )
 
             if data["paragraphs"]:
+
                 summary_parts.extend(
                     data["paragraphs"][:2]
                 )
@@ -185,6 +194,33 @@ def scrape_website(url):
             data["business_summary"] = clean_text(
                 " ".join(summary_parts)
             )
+
+            # -----------------------------------
+            # BLOCKED WEBSITE DETECTION
+            # -----------------------------------
+
+            blocked_keywords = [
+                "just a moment",
+                "security verification",
+                "verify you are not a bot",
+                "verification successful",
+                "cloudflare",
+                "access denied",
+                "checking your browser"
+            ]
+
+            combined_text = (
+                data["title"] + " " +
+                data["business_summary"]
+            ).lower()
+
+            for keyword in blocked_keywords:
+
+                if keyword in combined_text:
+
+                    data["blocked"] = True
+
+                    break
 
             # Close browser
             browser.close()
@@ -240,7 +276,12 @@ def scrape_website(url):
     print("\nBUSINESS SUMMARY:")
     print(data["business_summary"])
 
+    print("\nBLOCKED WEBSITE:")
+    print(data["blocked"])
+
     if data["error"]:
+
         print("\nERROR:")
         print(data["error"])
+
     return data

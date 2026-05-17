@@ -1,11 +1,17 @@
-from unittest import result
-
 from flask import Flask, render_template
 from flask import request
+import json
 
 from services.scraper import scrape_website
+from services.ai_service import generate_business_report
 
 app = Flask(__name__)
+
+
+def log_section(title, value=None):
+    print(f"\n========== {title} ==========", flush=True)
+    if value is not None:
+        print(value, flush=True)
 
 @app.route('/')
 def home():
@@ -18,9 +24,20 @@ def submit():
     name = request.form['fullName']
     email = request.form['workEmail']
     url=request.form['companyWebsite']
-    print(f"Received form submission: Name={name}, Email={email}, URL={url}", flush=True)
-    result = scrape_website(url)
-    print(result)
+
+    log_section("FORM SUBMITTED", f"Name={name}\nEmail={email}\nURL={url}")
+
+    scraped = scrape_website(url)
+
+    log_section(
+        "SCRAPED DATA RETURNED TO FLASK",
+        json.dumps(scraped, indent=2, ensure_ascii=False)
+    )
+
+    log_section("GENERATING AI REPORT")
+    report = generate_business_report(scraped)
+    log_section("GENERATED AI REPORT", report)
+
     return render_template('index.html', message=f"Form submitted successfully! Hello, {name} ({email})!")
 
 if __name__ == '__main__':
