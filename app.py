@@ -2,7 +2,7 @@ from flask import Flask, render_template
 from flask import request
 import json
 from flask import send_from_directory
-
+import requests
 from services.scraper import scrape_website
 from services.ai_service import generate_business_report
 from services.pdf_service import generate_pdf_report
@@ -58,6 +58,34 @@ def submit():
         company_name=name,
         report_data=report
     )
+    try:
+
+        public_pdf_url = (
+            f"https://smart-lead-pipeline.onrender.com/{pdf_path}"
+        )
+
+        requests.post(
+
+            "http://localhost:5678/webhook/0e761678-5bad-4ad4-b522-0e78ffd8ae4e",
+
+            json={
+
+                "name": name,
+                "email": email,
+                "company": request.form['companyName'],
+                "pdf_url": public_pdf_url
+            },
+
+            timeout=15
+        )
+
+        print("\nN8N WEBHOOK SENT")
+
+    except Exception as e:
+
+        print("\nN8N WEBHOOK FAILED")
+        print(e)
+    
 
     return render_template(
         'index.html',
