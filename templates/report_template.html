@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <style>
+
+        @page{
+            margin:40px;
+        }
+
+        body{
+            font-family: Helvetica, Arial, sans-serif;
+            color:#1e293b;
+            background:white;
+            font-size:14px;
+            line-height:1.7;
+        }
+
+        .header{
+            border-bottom:3px solid #2563eb;
+            padding-bottom:20px;
+            margin-bottom:30px;
+        }
+
+        .title{
+            font-size:34px;
+            font-weight:bold;
+            color:#111827;
+            margin-bottom:5px;
+        }
+
+        .subtitle{
+            color:#64748b;
+            font-size:16px;
+        }
+
+        .tags{
+            margin-top:15px;
+        }
+
+        .tag{
+            display:inline-block;
+            background:#dbeafe;
+            color:#1d4ed8;
+            padding:6px 12px;
+            border-radius:999px;
+            font-size:12px;
+            margin-right:8px;
+        }
+
+        .score-box{
+            background:#2563eb;
+            color:white;
+            padding:22px;
+            border-radius:12px;
+            margin-top:25px;
+            text-align:center;
+        }
+
+        .score{
+            font-size:46px;
+            font-weight:bold;
+        }
+
+        .score-label{
+            font-size:14px;
+            margin-top:6px;
+        }
+
+        .section{
+            margin-top:35px;
+        }
+
+        .section-title{
+            font-size:24px;
+            font-weight:bold;
+            color:#2563eb;
+            margin-bottom:18px;
+            border-left:6px solid #2563eb;
+            padding-left:12px;
+        }
+
+        .card{
+            background:#f8fafc;
+            border:1px solid #e2e8f0;
+            border-radius:14px;
+            padding:22px;
+            margin-bottom:18px;
+        }
+
+        .card-title{
+            font-size:18px;
+            font-weight:bold;
+            color:#111827;
+            margin-bottom:12px;
+        }
+
+        p{
+            margin:0;
+        }
+
+        ul{
+            padding-left:20px;
+            margin:0;
+        }
+
+        li{
+            margin-bottom:10px;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+            margin-top:10px;
+        }
+
+        th{
+            background:#2563eb;
+            color:white;
+            padding:14px;
+            text-align:left;
+            font-size:14px;
+        }
+
+        td{
+            padding:14px;
+            border-bottom:1px solid #e2e8f0;
+            background:white;
+        }
+
+        .metric-table td:first-child{
+            font-weight:bold;
+            width:70%;
+        }
+
+        .metric-score{
+            color:#2563eb;
+            font-weight:bold;
+        }
+
+        .footer{
+            margin-top:50px;
+            text-align:center;
+            color:#94a3b8;
+            font-size:12px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <div class="title">
+            Business Intelligence Report
+        </div>
+
+        <div class="subtitle">
+            {{ company_name }}
+        </div>
+
+        <div class="tags">
+            <span class="tag">AI Audit</span>
+            <span class="tag">Growth Analysis</span>
+            <span class="tag">Strategic Insights</span>
+        </div>
+
+        <div class="score-box">
+
+            <div class="score">
+                {{ report.business_score }}
+            </div>
+
+            <div class="score-label">
+                Business Potential Score
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- EXECUTIVE ANALYSIS -->
+
+    <div class="section">
+
+        <div class="section-title">
+            Executive Analysis
+        </div>
+
+        <div class="card">
+
+            <div class="card-title">
+                Executive Summary
+            </div>
+
+            <p>
+                {{ report.executive_summary }}
+            </p>
+
+        </div>
+
+        <div class="card">
+
+            <div class="card-title">
+                Business Positioning
+            </div>
+
+            <ul>
+
+                {% for item in report.business_positioning %}
+
+                <li>{{ item }}</li>
+
+                {% endfor %}
+
+            </ul>
+
+        </div>
+
+        <div class="card">
+
+            <div class="card-title">
+                Key Strengths
+            </div>
+
+            <ul>
+
+                {% for item in report.key_strengths %}
+
+                <li>{{ item }}</li>
+
+                {% endfor %}
+
+            </ul>
+
+        </div>
+
+        <div class="card">
+
+            <div class="card-title">
+                Growth Opportunities
+            </div>
+
+            <ul>
+
+                {% for item in report.growth_opportunities %}
+
+                <li>{{ item }}</li>
+
+                {% endfor %}
+
+            </ul>
+
+        </div>
+
+        <div class="card">
+
+            <div class="card-title">
+                Website & Digital Presence Analysis
+            </div>
+
+            <ul>
+
+                {% for item in report.website_analysis %}
+
+                <li>{{ item }}</li>
+
+                {% endfor %}
+
+            </ul>
+
+        </div>
+
+        <div class="card">
+
+            <div class="card-title">
+                Overall Assessment
+            </div>
+
+            <p>
+                {{ report.overall_assessment }}
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- BUSINESS METRICS -->
+
+    <div class="section">
+
+        <div class="section-title">
+            Business Metrics
+        </div>
+
+        <table class="metric-table">
+
+            <thead>
+
+                <tr>
+                    <th>Metric</th>
+                    <th>Score</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <tr>
+                    <td>Market Positioning</td>
+                    <td class="metric-score">
+                        {{ report.market_position }}/100
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>AI Innovation</td>
+                    <td class="metric-score">
+                        {{ report.ai_innovation }}/100
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Growth Potential</td>
+                    <td class="metric-score">
+                        {{ report.growth_potential }}/100
+                    </td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <!-- RECOMMENDATIONS -->
+
+    <div class="section">
+
+        <div class="section-title">
+            Recommendation Scorecard
+        </div>
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>Recommendation</th>
+                    <th>Priority</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for rec in report.strategic_recommendations %}
+
+                <tr>
+
+                    <td>
+                        {{ rec.title }}
+                    </td>
+
+                    <td class="metric-score">
+                        {{ rec.priority }}/100
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <!-- FOOTER -->
+
+    <div class="footer">
+        Generated using AI Business Intelligence Engine
+    </div>
+
+</body>
+
+</html>

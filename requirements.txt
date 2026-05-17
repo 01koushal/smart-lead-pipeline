@@ -2,3 +2,6 @@ Flask
 requests
 playwright
 groq
+weasyprint
+xhtml2pdf
+markdown
