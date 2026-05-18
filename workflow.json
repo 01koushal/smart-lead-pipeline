@@ -54,8 +54,8 @@
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.2,
       "position": [
-        640,
-        0
+        560,
+        -80
       ],
       "id": "14582919-3976-4671-b1d8-766c5065cd4f",
       "name": "Send a message",
@@ -163,8 +163,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        672,
-        240
+        464,
+        128
       ],
       "id": "8cf24dde-8c65-4fd5-834b-ea8178b88044",
       "name": "Append or update row in sheet",
@@ -172,6 +172,38 @@
         "googleSheetsOAuth2Api": {
           "id": "zPMbFIlyTsGyYT5K",
           "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "name": "={{ $json.body.name }}_report.pdf",
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "13MO4NZzb4MnMc5i4orJwGXSHWaiGpsIW",
+          "mode": "list",
+          "cachedResultName": "prospectiq",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/13MO4NZzb4MnMc5i4orJwGXSHWaiGpsIW"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        704,
+        80
+      ],
+      "id": "2f4c3c19-88bb-4e19-9fe2-d7b8c65f328d",
+      "name": "Upload file",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "KLkJ43TNExLHVdSP",
+          "name": "Google Drive account"
         }
       }
     }
@@ -182,17 +214,17 @@
       "main": [
         [
           {
-            "node": "HTTP Request",
-            "type": "main",
-            "index": 0
-          },
-          {
             "node": "Send a message",
             "type": "main",
             "index": 0
           },
           {
             "node": "Append or update row in sheet",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "HTTP Request",
             "type": "main",
             "index": 0
           }
@@ -203,12 +235,17 @@
       "main": [
         [
           {
+            "node": "Append or update row in sheet",
+            "type": "main",
+            "index": 0
+          },
+          {
             "node": "Send a message",
             "type": "main",
             "index": 0
           },
           {
-            "node": "Append or update row in sheet",
+            "node": "Upload file",
             "type": "main",
             "index": 0
           }
@@ -219,6 +256,11 @@
       "main": [
         []
       ]
+    },
+    "Append or update row in sheet": {
+      "main": [
+        []
+      ]
     }
   },
   "active": true,
@@ -226,7 +268,7 @@
     "executionOrder": "v1",
     "binaryMode": "separate"
   },
-  "versionId": "0027a561-e68d-4072-be30-89612cee5bf3",
+  "versionId": "6f945b76-a3c4-4378-929b-4709f690e58f",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "a4697792de39d3fb4cce0f777475ce66e7d4932461f67c5bd9081197bd482bd3"
