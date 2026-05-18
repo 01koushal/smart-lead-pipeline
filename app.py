@@ -88,7 +88,7 @@ def submit():
 
     return render_template(
         'index.html',
-        message=f"Form submitted successfully! Hello, {name} ({email})!",
+        message=f"Hi, {name} your form submission is complete. Please check your email ({email}) for the attached report. !",
         pdf_path=pdf_path
     )
 
