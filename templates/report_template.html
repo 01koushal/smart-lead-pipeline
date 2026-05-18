@@ -381,6 +381,87 @@
         </table>
 
     </div>
+    <!-- SOURCE DATA -->
+
+<div class="section">
+
+    <div class="section-title">
+        Source Data & Evidence
+    </div>
+
+    <div class="card">
+
+        <div class="card-title">
+            Website Title
+        </div>
+
+        <p>
+            {{ scraped.title }}
+        </p>
+
+    </div>
+
+    <div class="card">
+
+        <div class="card-title">
+            Meta Description
+        </div>
+
+        <p>
+            {{ scraped.meta_description }}
+        </p>
+
+    </div>
+
+    <div class="card">
+
+        <div class="card-title">
+            Extracted Headings
+        </div>
+
+        <ul>
+
+            {% for heading in scraped.headings %}
+
+            <li>{{ heading }}</li>
+
+            {% endfor %}
+
+        </ul>
+
+    </div>
+
+    <div class="card">
+
+        <div class="card-title">
+            CTA Buttons
+        </div>
+
+        <ul>
+
+            {% for button in scraped.cta_buttons %}
+
+            <li>{{ button }}</li>
+
+            {% endfor %}
+
+        </ul>
+
+    </div>
+
+    <div class="card">
+
+        <div class="card-title">
+            Business Summary
+        </div>
+
+        <p>
+            {{ scraped.business_summary }}
+        </p>
+
+    </div>
+
+</div>
 
     <!-- FOOTER -->
 

@@ -55,9 +55,10 @@ def submit():
     log_section("GENERATED AI REPORT", report)
 
     pdf_path = generate_pdf_report(
-        company_name=name,
-        report_data=report
-    )
+    company_name=name,
+    report_data=report,
+    scraped_data=scraped
+)
     try:
 
         public_pdf_url = (
