@@ -372,15 +372,10 @@ Application runs at:
 ```text
 http://127.0.0.1:5000
 ```
-
----
-## n8n Docker Deployment
-
+n8n Docker Deployment
 The n8n automation service was deployed separately using Docker-based deployment on Render.
 
-### Docker Image
-
-```text
+Docker Image
 n8nio/n8n
 
 Environment Configuration
@@ -391,6 +386,8 @@ N8N_HOST=<deployment-host>
 N8N_PORT=5678
 N8N_PROTOCOL=https
 WEBHOOK_URL=<public-webhook-url>
+---
+
 
 
 # Engineering Decisions
