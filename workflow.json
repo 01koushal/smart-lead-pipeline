@@ -1,0 +1,236 @@
+{
+  "name": "workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "0e761678-5bad-4ad4-b522-0e78ffd8ae4e",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -80,
+        96
+      ],
+      "id": "e205b813-371c-4adc-a6a9-5fa176a66842",
+      "name": "Webhook",
+      "webhookId": "0e761678-5bad-4ad4-b522-0e78ffd8ae4e"
+    },
+    {
+      "parameters": {
+        "url": "={{$json[\"body\"][\"pdf_url\"]}}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        240,
+        -96
+      ],
+      "id": "fb94c755-7058-457c-a41a-31484b7c8541",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.body.email }}",
+        "subject": "Your AI Business Intelligence Report",
+        "emailType": "text",
+        "message": "=Hi {{$json[\"body\"][\"name\"]}},  Thank you for using ProspectIQ.  Your personalized AI-generated business intelligence report has been successfully generated and attached to this email.  The report includes:  * Executive business analysis * Growth opportunities * Strategic recommendations * Digital presence insights * Business metrics and scoring  We hope these insights help support your business growth and decision-making.  Best regards, ProspectIQ Team",
+        "options": {
+          "attachmentsUi": {
+            "attachmentsBinary": [
+              {}
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        640,
+        0
+      ],
+      "id": "14582919-3976-4671-b1d8-766c5065cd4f",
+      "name": "Send a message",
+      "webhookId": "5d63aa2a-3f86-4c2f-92fd-c0f427f0cf59",
+      "alwaysOutputData": true,
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "GorlqeCxpmEtIgWO",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1lWE4f4DC76gb1P4jYR-9ES7zitzrWF2doT43lTCpWZI",
+          "mode": "list",
+          "cachedResultName": "ProspectIQ Leads",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1lWE4f4DC76gb1P4jYR-9ES7zitzrWF2doT43lTCpWZI/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1lWE4f4DC76gb1P4jYR-9ES7zitzrWF2doT43lTCpWZI/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Timestamp": "={{ new Date().toISOString() }}",
+            "Name": "={{ $json.body.name }}",
+            "Email": "={{ $json.body.email }}",
+            "Company": "={{ $json.body.company }}",
+            "PDF_URL": "={{ $json.body.pdf_url }}",
+            "Status": "Report Sent"
+          },
+          "matchingColumns": [
+            "Timestamp"
+          ],
+          "schema": [
+            {
+              "id": "Timestamp",
+              "displayName": "Timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Company",
+              "displayName": "Company",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "PDF_URL",
+              "displayName": "PDF_URL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        672,
+        240
+      ],
+      "id": "8cf24dde-8c65-4fd5-834b-ea8178b88044",
+      "name": "Append or update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "zPMbFIlyTsGyYT5K",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Append or update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Append or update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "0027a561-e68d-4072-be30-89612cee5bf3",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "a4697792de39d3fb4cce0f777475ce66e7d4932461f67c5bd9081197bd482bd3"
+  },
+  "id": "zg06ktiHZ8bBSsdl",
+  "tags": []
+}
